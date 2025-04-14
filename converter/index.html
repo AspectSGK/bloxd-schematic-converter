@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schematic Converter</title>
+    <meta name="description" content="Convert schematic files from Minecraft to Bloxd and vice versa">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Verdana', sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: url('https://giffiles.alphacoders.com/105/105408.gif') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #f0eae2;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .text-side {
+            max-width: 60%;
+        }
+
+        .text-side h2 {
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #f8f4ef;
+        }
+
+        .text-side p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .text-side a {
+            color: #aad1ff;
+            text-decoration: underline;
+        }
+
+        .upload-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 40px;
+        }
+
+        input[type="file"] {
+            background-color: #111;
+            color: #fff;
+            border: 2px solid #444;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #222;
+        }
+
+        input[type="file"] {
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .text-side, .upload-side {
+                max-width: 100%;
+            }
+
+            .upload-side {
+                align-items: center;
+                margin-top: 20px;
+            }
+        }
+    </style>
+    <script src="./bundle.js" defer></script>
+</head>
+<body>
+    <div class="overlay">
+        <div class="text-side">
+            <h2>Schematic Converter</h2>
+            <p><strong>Supported types:</strong> .bloxdschem, .schematic, .schem, .litematic</p>
+            <p>Use <a href="https://beta.cubical.xyz">beta cubical</a> to convert <code>.schematic</code> to <code>.schem</code> (File → Export → Sponge Schematic) for better compatibility.</p>
+            <p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
+            <p><strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size. The X-coordinate in each filename shows how far it should shift from the original.</p>
+            <p>Credits: Some logic adapted from <a href="https://github.com/hansdiewurst/converter">this project</a> and <a href="https://bloxd.io/">Bloxd</a>.</p>
+        </div>
+
+        <div class="upload-side">
+
+        </div>
+    </div>
+</body>
+</html>
