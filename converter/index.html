@@ -34,7 +34,12 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .background.show {
+            opacity: 1;
         }
 
         .overlay {
@@ -136,26 +141,30 @@
             ];
 
             let current = 0;
+
             const bg1 = document.createElement("div");
             const bg2 = document.createElement("div");
-            bg1.className = "background";
+
+            bg1.className = "background show";
             bg2.className = "background";
+
             bg1.style.backgroundImage = `url(${backgrounds[current]})`;
-            bg2.style.opacity = 0;
 
             document.body.appendChild(bg1);
             document.body.appendChild(bg2);
 
             setInterval(() => {
                 const next = (current + 1) % backgrounds.length;
-                const active = current % 2 === 0 ? bg1 : bg2;
-                const inactive = current % 2 === 0 ? bg2 : bg1;
+                const [active, inactive] = current % 2 === 0 ? [bg1, bg2] : [bg2, bg1];
 
-                inactive.style.backgroundImage = `url(${backgrounds[next]})`;
-                inactive.style.opacity = 1;
-                active.style.opacity = 0;
-
-                current = next;
+                const img = new Image();
+                img.onload = () => {
+                    inactive.style.backgroundImage = `url(${backgrounds[next]})`;
+                    inactive.classList.add("show");
+                    active.classList.remove("show");
+                    current = next;
+                };
+                img.src = backgrounds[next];
             }, 7000);
         });
     </script>
