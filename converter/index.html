@@ -19,11 +19,22 @@
         }
 
         body {
-            background: url('https://raw.githubusercontent.com/AspectSGK/bloxd-schematic-converter/refs/heads/main/converter/background.gif') no-repeat center center fixed;
-            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
         }
 
         .overlay {
@@ -114,32 +125,65 @@
             }
         }
     </style>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const backgrounds = [
+                "https://builtbybit.com/attachments/4-jpg.694145/?variant=display",
+                "https://builtbybit.com/attachments/5-jpg.694144/?variant=display",
+                "https://builtbybit.com/attachments/screen-2-jpg.595567/?variant=display",
+                "https://builtbybit.com/attachments/6-jpg.622708/?variant=display",
+                "https://builtbybit.com/attachments/vyraj-140x140-compact-spawn-1-png.729223/?variant=display"
+            ];
+
+            let current = 0;
+            const bg1 = document.createElement("div");
+            const bg2 = document.createElement("div");
+            bg1.className = "background";
+            bg2.className = "background";
+            bg1.style.backgroundImage = `url(${backgrounds[current]})`;
+            bg2.style.opacity = 0;
+
+            document.body.appendChild(bg1);
+            document.body.appendChild(bg2);
+
+            setInterval(() => {
+                const next = (current + 1) % backgrounds.length;
+                const active = current % 2 === 0 ? bg1 : bg2;
+                const inactive = current % 2 === 0 ? bg2 : bg1;
+
+                inactive.style.backgroundImage = `url(${backgrounds[next]})`;
+                inactive.style.opacity = 1;
+                active.style.opacity = 0;
+
+                current = next;
+            }, 7000);
+        });
+    </script>
     <script src="./bundle.js" defer></script>
 </head>
 <body>
     <div class="overlay">
-<div class="text-side">
-  <h2>Schematic Converter</h2>
-  <p><strong>Supported types:</strong> <code>.bloxdschem</code>, <code>.schematic</code>, <code>.schem</code>, <code>.litematic</code></p>
-  <p>
-    Use <a href="https://beta.cubical.xyz" target="_blank" rel="noopener noreferrer">Beta Cubical</a> to convert 
-    <code>.schematic</code> to <code>.schem</code> 
-    (<em>File → Export → Sponge Schematic</em>) for better compatibility.
-  </p>
-  <p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
-  <p>
-    <strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size. 
-    The X-coordinate in each filename indicates how far it should shift from the original.
-  </p>
-  <p>
-    Credits: All logic from 
-    <a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">Hansdiewurst's tool</a>. 
-    Some logic adapted from 
-    <a href="https://github.com/hansdiewurst/converter" target="_blank" rel="noopener noreferrer">this GitHub project</a> 
-    and <a href="https://bloxd.io/" target="_blank" rel="noopener noreferrer">Bloxd</a>.
-  </p>
-</div>
-
+        <div class="text-side">
+            <h2>Schematic Converter</h2>
+            <p><strong>Supported types:</strong> <code>.bloxdschem</code>, <code>.schematic</code>, <code>.schem</code>, <code>.litematic</code></p>
+            <p>
+                Use <a href="https://beta.cubical.xyz" target="_blank" rel="noopener noreferrer">Beta Cubical</a> to convert 
+                <code>.schematic</code> to <code>.schem</code> 
+                (<em>File → Export → Sponge Schematic</em>) for better compatibility.
+            </p>
+            <p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
+            <p>
+                <strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size. 
+                The X-coordinate in each filename indicates how far it should shift from the original.
+            </p>
+            <p>
+                Credits: All logic from 
+                <a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">Hansdiewurst's tool</a>. 
+                Some logic adapted from 
+                <a href="https://github.com/hansdiewurst/converter" target="_blank" rel="noopener noreferrer">this GitHub project</a> 
+                and <a href="https://bloxd.io/" target="_blank" rel="noopener noreferrer">Bloxd</a>.
+            </p>
+        </div>
         <div class="upload-side">
 
         </div>
