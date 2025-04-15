@@ -22,44 +22,36 @@
             display: flex;
         }
 
-    .sidebar {
-        width: 200px;
-        background: rgba(0, 0, 0, 0.65);
-        backdrop-filter: blur(8px);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-    }
+        .sidebar {
+            width: 200px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        }
 
-    .sidebar button {
-        background: rgba(255, 255, 255, 0.05);
-        border: none;
-        color: #f0f0f0;
-        padding: 12px 16px;
-        text-align: left;
-        font-size: 1rem;
-        cursor: pointer;
-        margin-bottom: 10px;
-        border-radius: 12px;
-        transition: background 0.3s, transform 0.2s;
-    }
+        .sidebar button {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #f0f0f0;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            transition: background 0.3s, transform 0.2s;
+        }
 
-    .sidebar button:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(1.02);
-    }
-
-    .main-content {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
+        .sidebar button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
 
         .main-content {
             flex-grow: 1;
@@ -246,6 +238,32 @@
                 `;
             };
         });
+
+        const titleText = "Schematic Converter";
+        let index = 0;
+        let direction = 1;
+
+        function animateTitle() {
+            document.title = titleText.slice(0, index) + (index < titleText.length ? "|" : "");
+            if (direction === 1) {
+                index++;
+                if (index > titleText.length) {
+                    direction = -1;
+                    setTimeout(animateTitle, 1000);
+                    return;
+                }
+            } else {
+                index--;
+                if (index < 0) {
+                    direction = 1;
+                    setTimeout(animateTitle, 500);
+                    return;
+                }
+            }
+            setTimeout(animateTitle, 150);
+        }
+
+        animateTitle();
     </script>
 </head>
 <body>
