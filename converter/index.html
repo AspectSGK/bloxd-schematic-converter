@@ -166,20 +166,32 @@
     <button disabled style="opacity: 0.5; cursor: not-allowed;">Texture Pack Converter (coming soon)</button>
 </div>
 
+<div class="overlay">
+<div class="text-side">
+<h2>Schematic Converter</h2>
+<p><strong>Supported types:</strong> <code>.bloxdschem</code>, <code>.schematic</code>, <code>.schem</code>, <code>.litematic</code></p>
+<p>
+Use <a href="https://beta.cubical.xyz" target="_blank" rel="noopener noreferrer">Beta Cubical</a> to convert
+<code>.schematic</code> to <code>.schem</code>
+(<em>File → Export → Sponge Schematic</em>) for better compatibility.
+</p>
+<p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
+<p>
+<strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size.
+The X-coordinate in each filename indicates how far it should shift from the original.
+</p>
+<p>
+Credits: All logic from
+<a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">Hansdiewurst's tool</a>.
+Some logic adapted from
+<a href="https://github.com/hansdiewurst/converter" target="_blank" rel="noopener noreferrer">this GitHub project</a>
+and <a href="https://bloxd.io/" target="_blank" rel="noopener noreferrer">Bloxd</a>.
+</p>
+</div>
+<div class="upload-side">
 
-    <div class="main-content">
-        <div class="overlay">
-            <div class="text-side">
-                <h2>Welcome to the Schematic Converter</h2>
-                <p>This tool allows you to convert your Minecraft schematics into Bloxd.io format and vice versa. Upload your schematic file below to get started.</p>
-                <a href="https://discord.com" target="_blank">Join our Discord</a>
-            </div>
-
-            <div class="upload-side" id="upload-side">
-
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
