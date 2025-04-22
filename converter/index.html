@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Schematic Converter</title>
+    <title>Converter</title>
     <link rel="icon" type="image/png" href="https://github.com/AspectSGK/bloxd-schematic-converter/blob/main/converter/logo.png?raw=true">
     <meta name="description" content="Convert schematic files from Minecraft to Bloxd and vice versa">
     <style>
@@ -19,6 +19,42 @@
         }
 
         body {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar button {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #f0f0f0;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .sidebar button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .main-content {
+            flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -77,56 +113,14 @@
             text-decoration: underline;
         }
 
-        .upload-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-left: 40px;
-        }
-
-        input[type="file"] {
-            background-color: #111;
-            color: #fff;
-            border: 2px solid #444;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        input[type="file"]::file-selector-button {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="file"]::file-selector-button:hover {
-            background-color: #222;
-        }
-
-        input[type="file"] {
-            display: inline-block;
-        }
-
         @media (max-width: 768px) {
             .overlay {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .text-side, .upload-side {
+            .text-side {
                 max-width: 100%;
-            }
-
-            .upload-side {
-                align-items: center;
-                margin-top: 20px;
             }
         }
     </style>
@@ -141,13 +135,10 @@
             ];
 
             let current = 0;
-
             const bg1 = document.createElement("div");
             const bg2 = document.createElement("div");
-
             bg1.className = "background show";
             bg2.className = "background";
-
             bg1.style.backgroundImage = `url(${backgrounds[current]})`;
 
             document.body.appendChild(bg1);
@@ -165,36 +156,37 @@
                 };
                 img.src = backgrounds[next];
             }, 7000);
+
+            document.getElementById('schematic-btn').onclick = () => {
+                document.getElementById('overlay-content').innerHTML = 
+                `<div class="text-side">
+                    <h2>Schematic Converter</h2>
+                    <p><strong>Supported types:</strong> <code>.bloxdschem</code>, <code>.schematic</code>, <code>.schem</code>, <code>.litematic</code></p>
+                    <p>Use <a href="https://beta.cubical.xyz" target="_blank" rel="noopener noreferrer">Beta Cubical</a> to convert 
+                    <code>.schematic</code> to <code>.schem</code> (<em>File → Export → Sponge Schematic</em>) for better compatibility.</p>
+                    <p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
+                    <p><strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size. The X-coordinate in each filename indicates how far it should shift from the original.</p>
+                    <p>Credits: All logic from <a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">Hansdiewurst's tool</a>. Some logic adapted from <a href="https://github.com/hansdiewurst/converter" target="_blank" rel="noopener noreferrer">this GitHub project</a> and <a href="https://bloxd.io/" target="_blank" rel="noopener noreferrer">Bloxd</a>.</p>
+                </div>`;
+            };
+
+            document.getElementById('texture-btn').onclick = () => {
+                document.getElementById('overlay-content').innerHTML = 
+                `<div class="text-side">
+                    <h2>Texture Pack Converter</h2>
+                    <p>Coming soon...</p>
+                </div>`;
+            };
         });
     </script>
-    <script src="./bundle.js" defer></script>
 </head>
 <body>
-    <div class="overlay">
-        <div class="text-side">
-            <h2>Schematic Converter</h2>
-            <p><strong>Supported types:</strong> <code>.bloxdschem</code>, <code>.schematic</code>, <code>.schem</code>, <code>.litematic</code></p>
-            <p>
-                Use <a href="https://beta.cubical.xyz" target="_blank" rel="noopener noreferrer">Beta Cubical</a> to convert 
-                <code>.schematic</code> to <code>.schem</code> 
-                (<em>File → Export → Sponge Schematic</em>) for better compatibility.
-            </p>
-            <p>Blocks with no equivalent are replaced with <strong>dirt</strong>.</p>
-            <p>
-                <strong>Splitting:</strong> Large schematics are split into multiple files based on chunk size. 
-                The X-coordinate in each filename indicates how far it should shift from the original.
-            </p>
-            <p>
-                Credits: All logic from 
-                <a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">Hansdiewurst's tool</a>. 
-                Some logic adapted from 
-                <a href="https://github.com/hansdiewurst/converter" target="_blank" rel="noopener noreferrer">this GitHub project</a> 
-                and <a href="https://bloxd.io/" target="_blank" rel="noopener noreferrer">Bloxd</a>.
-            </p>
-        </div>
-        <div class="upload-side">
-          
-        </div>
+    <div class="sidebar">
+        <button id="schematic-btn">Schematic Converter</button>
+        <button id="texture-btn">Texture Pack Converter</button>
+    </div>
+    <div class="main-content">
+        <div class="overlay" id="overlay-content"></div>
     </div>
 </body>
 </html>
