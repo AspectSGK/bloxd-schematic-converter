@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schematic Converter</title>
+    <link rel="icon" type="image/png" href="https://github.com/AspectSGK/bloxd-schematic-converter/blob/main/converter/logo.png?raw=true">
+    <meta name="description" content="Convert schematic files from Minecraft to Bloxd and vice versa">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Verdana', sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .background.show {
+            opacity: 1;
+        }
+
+        /* Popup overlay */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .popup {
+            background: rgba(20, 20, 20, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 40px 48px;
+            text-align: center;
+            color: #f0eae2;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            max-width: 480px;
+            width: 90%;
+        }
+
+        .popup h2 {
+            margin: 0 0 12px;
+            font-size: 1.6rem;
+            color: #ff6b6b;
+        }
+
+        .popup p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        .popup a {
+            color: #aad1ff;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+
+        .popup a:hover {
+            color: #d0e8ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="popup-overlay">
+        <div class="popup">
+            <h2>⚠️ Project Discontinued</h2>
+            <p>
+                This project is discontinued, try the new one at<br>
+                <a href="https://hansdiewurst.github.io/converter/" target="_blank" rel="noopener noreferrer">
+                    hansdiewurst.github.io/converter/
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const backgrounds = [
+                "https://builtbybit.com/attachments/4-jpg.694145/?variant=display",
+                "https://builtbybit.com/attachments/5-jpg.694144/?variant=display",
+                "https://builtbybit.com/attachments/screen-2-jpg.595567/?variant=display",
+                "https://builtbybit.com/attachments/6-jpg.622708/?variant=display",
+                "https://builtbybit.com/attachments/vyraj-140x140-compact-spawn-1-png.729223/?variant=display"
+            ];
+
+            let current = 0;
+            const bg1 = document.createElement("div");
+            const bg2 = document.createElement("div");
+            bg1.className = "background show";
+            bg2.className = "background";
+            bg1.style.backgroundImage = `url(${backgrounds[current]})`;
+
+            document.body.appendChild(bg1);
+            document.body.appendChild(bg2);
+
+            setInterval(() => {
+                const next = (current + 1) % backgrounds.length;
+                const [active, inactive] = current % 2 === 0 ? [bg1, bg2] : [bg2, bg1];
+                const img = new Image();
+                img.onload = () => {
+                    inactive.style.backgroundImage = `url(${backgrounds[next]})`;
+                    inactive.classList.add("show");
+                    active.classList.remove("show");
+                    current = next;
+                };
+                img.src = backgrounds[next];
+            }, 7000);
+        });
+    </script>
+
+</body>
+</html>
